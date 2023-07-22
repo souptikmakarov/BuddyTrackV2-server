@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Client Side Script</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="css/chat.css">
+    </head>
+    <body>
+        <div class="hidden-nav inactive">
+            <div class="welcome">
+                Welcome to BuddyTrack
+            </div>
+            <div id="welcome2" class="ctrl-msg">No Messages.</div>
+            <ul>
+                <!-- <li id="sendgeo" class="my-invisible"><span class="fa fa-map-marker"></span> SOS</li>
+                <li id="receivegeo" class="my-invisible"><span class="fa fa-location-arrow"></span> Track Location</li>
+                <li id="stop" class="my-invisible"><span class="fa fa-stop-circle-o"></span> Stop Tracking</li>                
+                <li id="groupchat"><span class="fa fa-umbrella"></span>Start Group Chat</li> -->
+                <li id="logout"><span class="fa fa-sign-out"></span> Logout</li>
+                <li id="exit"><span class="fa fa-warning"></span> Exit</li>
+            </ul>
+        </div>
+        <div class="overlay hidden"></div>
+
+        <div id="loader">
+            <img src="img/load.gif">
+        </div>
+
+        <div class="mobile-navbar">
+            <div class="menu">
+                <img src="img/menu.png">
+            </div>
+            <h3 class="appName">Buddytrack</h3>
+            <div class="menu2">
+                <img src="img/menu2.png">
+            </div>
+        </div>
+        <main class="atleft">
+            <div class="chat">
+                <ul id="messages"></ul>
+            </div>
+            <form id="textField" action="">
+                <input type="text" id="m" autocomplete="off" />
+                <button type="submit"><span class="fa fa-paper-plane"></span></button>
+            </form>
+            <p id='mapdiv' class="my-invisible"></p>
+            <p id='mapdiv1' class="my-invisible"></p>
+            <p id='mapdist' class="my-invisible">
+                Distance(KM):<span id="km"></span>
+                Distance(M):<span id="mile"></span>
+            </p>
+        </main>
+
+        <div class="hidden-right not">
+            <div id="usrdet" class="welcome3"></div>
+            <div id="welcome" class="ctrl-msg"></div>
+            <!-- <div id="add_recv" class="welcome"><span class="fa fa-plus-square"></span> Add Receiver</div>
+            <ul id="available" class="avail"></ul> -->
+        </div>
+        <div class="right-overlay hide"></div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAph13UXmGUCdG8VRvuIhtvhfmJe8wwlBg"></script>
+        <script type="text/javascript" src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+        <script type="text/javascript" src="js/chat.js"></script>
+        <script type="text/javascript" src="js/grpchat.js"></script>
+    </body>
+</html>

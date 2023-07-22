@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register Now!</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <div class="hidden-nav inactive">
+            <div class="welcome">
+                Welcome to BuddyTrack
+            </div>
+            <ul>
+                <li id="change"><span class="fa fa-sign-in"></span> Signin</a></li>
+                <li id="exit"><span class="fa fa-warning"></span> Exit</li>
+            </ul>
+        </div>
+        <div class="overlay hidden"></div>
+
+        <div id="loader" class="my-visible"></div>
+        <div class="mobile-navbar">
+            <div class="menu">
+                <img src="img/menu.png">
+            </div>
+            <h3 class="appName">BuddyTrack</h3>
+        </div>
+        <main class="atleft">
+            <form id="regForm" name="regForm" class="form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="pwd">
+                </div>
+                <button type="submit" id="register" class="btn btn-primary">Register</button>
+            </form>
+        </main>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+        <script type="text/javascript" src="js/register.js"></script>
+        <script type="text/javascript" src="js/navbar.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    </body>
+</html>

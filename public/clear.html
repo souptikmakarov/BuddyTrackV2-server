@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Clear Database</title>
+</head>
+<body>
+	<h1 id="text"></h1>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script type="text/javascript">
+		$(window).load(function() {
+			var pass = prompt('Enter Password.');
+			if(pass == null || pass.length == 0) {
+				$('#text').text("Winter is Coming.");
+			}else{
+				$.ajax({
+					url: '/clrdb',
+					type: 'POST',
+					data: {
+						password: pass
+					},
+					success: function(result){
+						var reply=result;
+						if (reply=="incorrect_password") {
+							$('#text').text("John Snow is Coming.");
+						}else if(reply=="success"){
+							$('#text').text("Success Clearing DB.");	
+						}else{
+							$('#text').text(reply);	
+						}
+					},
+					error: function(result){
+						alert("Error.");
+					}
+				});
+			}
+		});
+	</script>
+</body>
+</html>
