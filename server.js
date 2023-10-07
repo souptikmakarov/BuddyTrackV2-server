@@ -6,8 +6,10 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 var sha256 = require('js-sha256');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var cors = require('cors');
 
 app.use(express.json());
+app.use(cors());
 
 var port=Number(process.env.OPENSHIFT_NODEJS_PORT || 3000);
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
@@ -26,10 +28,7 @@ const client = new MongoClient(url, {
 	}
 });
 
-// Connection URL. This is where your mongodb server is running.
-// var url="mongodb://"+process.env.OPENSHIFT_MONGODB_DB_USERNAME+":"+process.env.OPENSHIFT_MONGODB_DB_PASSWORD+"@"+process.env.OPENSHIFT_MONGODB_DB_HOST+":"+process.env.OPENSHIFT_MONGODB_DB_PORT;
-// var url="mongodb://127.0.0.1:27017/buddytrack";
-// mongodb+srv://makarov:xdfnJm2cvlAZUERb@cluster0.dygtr.mongodb.net/
+
 app.post('/clrdb', async (req, res) => {
 	var pass = req.body.password;
 	if(pass == "toor") {
@@ -42,7 +41,7 @@ app.post('/clrdb', async (req, res) => {
 			res.status(200).send({
 				status: "success",
 				message: "Deleted " + result.deletedCount + " documents",
-				err: null
+				err: ""
 			});
 		}
 		catch (err){
@@ -61,7 +60,7 @@ app.post('/clrdb', async (req, res) => {
 		res.status(500).send({
 			status: "error",
 			message: "incorrect_password",
-			err: null
+			err: ""
 		});
 	}
 });
@@ -85,6 +84,7 @@ app.post('/login', async (req, res) => {
 		await client.connect();
 		console.log('Connection established');
 		var collection = client.db("buddytrack").collection("users");
+		console.log(req.body);
 		const query = {username: req.body.username};
 		if ((await collection.countDocuments(query)) != 0) {
 			const result = await collection.findOne(query);
@@ -97,14 +97,14 @@ app.post('/login', async (req, res) => {
 				res.status(200).send({
 					status: "success",
 					message: "login_success",
-					err: null
+					err: ""
 				});
 			}
 			else{
 				res.status(200).send({
 					status: "error",
 					message: "incorrect_password",
-					err: null
+					err: ""
 				});
 			}
 		}
@@ -112,7 +112,7 @@ app.post('/login', async (req, res) => {
 			res.status(200).send({
 				status: "error",
 				message: "incorrect_username",
-				err: null
+				err: ""
 			});			
 		}
 
@@ -141,8 +141,8 @@ app.post('/register', async (req, res) => {
 		if ((await collection.countDocuments(query)) != 0) {
 			res.status(200).send({
 				status: "error",
-				message: "Username already exists",
-				err: null
+				message: "username_exists",
+				err: ""
 			});
 		}
 		else{
@@ -160,14 +160,14 @@ app.post('/register', async (req, res) => {
 				res.status(200).send({
 					status: "success",
 					message: "registration_complete",
-					err: null
+					err: ""
 				});
 			}
 			catch (err) {
 				console.log(err);
 				res.status(500).send({
 					status: "error",
-					message: "Error inserting record",
+					message: "error_inserting_record",
 					err: err
 				});
 			}
@@ -189,135 +189,4 @@ app.post('/register', async (req, res) => {
 	}
 });
 
-app.use(express.static("public"));
-
-// app.get('/', function (req, res) {
-//    console.log(req.query);
-//    res.setHeader('Content-Type', 'text/html');
-//    res.send(fs.readFileSync('index.html'));
-// });
-
-// app.get('/signin', function (req, res) {
-//    res.setHeader('Content-Type', 'text/html');
-//    res.send(fs.readFileSync('login.html'));
-// });
-
-// app.get('/signup', function (req, res) {
-//    res.setHeader('Content-Type', 'text/html');
-//    res.send(fs.readFileSync('register.html'));
-// });
-
-// app.get('/chat', function (req, res) {
-//    res.setHeader('Content-Type', 'text/html');
-//    res.send(fs.readFileSync('chat.html'));
-// });
-
-// app.get('/group', function (req, res) {
-//    res.setHeader('Content-Type', 'text/html');
-//    res.send(fs.readFileSync('group.html'));
-// });
-
-// app.get('/groupchat', function (req, res) {
-//    res.setHeader('Content-Type', 'text/html');
-//    res.send(fs.readFileSync('grpchat.html'));
-// });
-
-// app.get('/clear', function (req, res) {
-//    res.setHeader('Content-Type', 'text/html');
-//    res.send(fs.readFileSync('clear.html'));
-// });
-
-// app.get('/group', function (req, res) {
-//    res.setHeader('Content-Type', 'text/html');
-//    res.send(fs.readFileSync('group.html'));
-// });
-
-// app.get('/css/chat.css', function (req, res) {
-//    res.setHeader('Content-Type', 'text/css');
-//    res.send(fs.readFileSync('css/chat.css'));
-// });
-
-// app.get('/css/group.css', function (req, res) {
-//    res.setHeader('Content-Type', 'text/css');
-//    res.send(fs.readFileSync('css/group.css'));
-// });
-
-// app.get('/css/grpchat.css', function (req, res) {
-//    res.setHeader('Content-Type', 'text/css');
-//    res.send(fs.readFileSync('css/grpchat.css'));
-// });
-
-// app.get('/css/style.css', function (req, res) {
-//    res.setHeader('Content-Type', 'text/css');
-//    res.send(fs.readFileSync('css/style.css'));
-// });
-
-// app.get('/css/fontello.css', function (req, res) {
-//    res.setHeader('Content-Type', 'text/css');
-//    res.send(fs.readFileSync('css/fontello.css'));
-// });
-
-// app.get('/css/bootstrap.min.css', function (req, res) {
-//    res.setHeader('Content-Type', 'text/css');
-//    res.send(fs.readFileSync('css/bootstrap.min.css'));
-// });
-
-// app.get('/js/bootstrap.min.js', function (req, res) {
-//    res.setHeader('Content-Type', 'text/javascript');
-//    res.send(fs.readFileSync('js/bootstrap.min.js'));
-// });
-
-// app.get('/js/client.js', function (req, res) {
-//    res.setHeader('Content-Type', 'text/javascript');
-//    res.send(fs.readFileSync('js/client.js'));
-// });
-
-// app.get('/js/login.js', function (req, res) {
-//    res.setHeader('Content-Type', 'text/javascript');
-//    res.send(fs.readFileSync('js/login.js'));
-// });
-
-// app.get('/js/register.js', function (req, res) {
-//    res.setHeader('Content-Type', 'text/javascript');
-//    res.send(fs.readFileSync('js/register.js'));
-// });
-
-// app.get('/js/navbar.js', function (req, res) {
-//    res.setHeader('Content-Type', 'text/javascript');
-//    res.send(fs.readFileSync('js/navbar.js'));
-// });
-
-// app.get('/js/chat.js', function (req, res) {
-//    res.setHeader('Content-Type', 'text/javascript');
-//    res.send(fs.readFileSync('js/chat.js'));
-// });
-
-// app.get('/js/grpchat.js', function (req, res) {
-//    res.setHeader('Content-Type', 'text/javascript');
-//    res.send(fs.readFileSync('js/grpchat.js'));
-// });
-
-// app.get('/js/group.js', function (req, res) {
-//    res.setHeader('Content-Type', 'text/javascript');
-//    res.send(fs.readFileSync('js/group.js'));
-// });
-
-// app.get('/img/back.jpg', function (req, res) {
-//    res.setHeader('Content-Type', 'image/jpg');
-//    res.send(fs.readFileSync('img/back.jpg'));
-// });
-
-// app.get('/img/load.gif', function (req, res) {
-//    res.setHeader('Content-Type', 'image/gif');
-//    res.send(fs.readFileSync('img/load.gif'));
-// });
-
-// app.get('/img/menu.png', function (req, res) {
-//    res.setHeader('Content-Type', 'image/png');
-//    res.send(fs.readFileSync('img/menu.png'));
-// });
-
-// app.get('/img/menu2.png', function (req, res) {
-//    res.setHeader('Content-Type', 'image/png');
-//    res.send(fs.readFileSync('img/menu2.png'));
-// });
+app.use(express.static("public",{index:false,extensions:['html']}));

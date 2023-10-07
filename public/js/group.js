@@ -1,7 +1,7 @@
 $(window).load(function() {
 	var avail = {}, grp = {}, cnt=0, ret_cnt=0, flag=0, fin_grp = {}, gotPlace = false, placeChecker;
 	var my_username = localStorage.getItem("username");
-	socket = io.connect('https://buddytrack2.herokuapp.com', {'sync disconnect on unload': false });
+	socket = io.connect('http://localhost:5000', {'sync disconnect on unload': false });
 
 	socket.on('connect', function() {
 		socket.emit('update_user',my_username);

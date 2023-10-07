@@ -1,0 +1,10 @@
+<html>
+    <body>
+        <h1>Test</h1>
+        <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+        <script>
+            const socket = io("http://localhost:5000");
+            socket.emit("test_msg", { a: "b", c: [] });
+        </script>
+    </body>
+</html>

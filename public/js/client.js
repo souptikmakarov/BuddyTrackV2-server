@@ -15,7 +15,7 @@ $(window).load(function() {
 	var my_username = '',recv_username='',geodetails='',socket = null;
 
 	if(localStorage.getItem("username") != null){
-		socket = io.connect('https://buddytrack2.herokuapp.com', {'sync disconnect on unload': false });
+		socket = io.connect('http://localhost:5000', {'sync disconnect on unload': false });
 	}else{
 		alert("Please Login Again.");
 		location.href="/signin";

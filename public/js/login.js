@@ -29,32 +29,35 @@ $(document).on('ready', function() {
 			var user = $('#username').val().trim();
 			var pass = $('#pwd').val().trim();
 			$('#loader').attr({class: 'my-visible'});
-			$.ajax({
-				url: '/login',
-				type: 'POST',
-				data: {
-					username: user,
-					password: pass
-				},
-				success: function(result){
-					var reply=result;
-					if (reply=="incorrect_username") {
-						$('#loader').attr({class: 'my-invisible'});
-						alert("The username entered does not exist.");
-					}else if(reply=="incorrect_password"){
-						$('#loader').attr({class: 'my-invisible'});
-						alert("Incorrect password");
-					}else if(reply=="login_success"){
-						localStorage.removeItem("username");
-						localStorage.setItem("username",user);
-						location.href = "/chat";
-					}
-				},
-				error: function(result){
-					$('#loader').attr({class: 'my-invisible'});
-					alert("Error "+result);
-				}
-			});
+			localStorage.removeItem("username");
+			localStorage.setItem("username",user);
+			location.href = "/chat";
+			// $.ajax({
+			// 	url: '/login',
+			// 	type: 'POST',
+			// 	data: {
+			// 		username: user,
+			// 		password: pass
+			// 	},
+			// 	success: function(result){
+			// 		var reply=result;
+			// 		if (reply=="incorrect_username") {
+			// 			$('#loader').attr({class: 'my-invisible'});
+			// 			alert("The username entered does not exist.");
+			// 		}else if(reply=="incorrect_password"){
+			// 			$('#loader').attr({class: 'my-invisible'});
+			// 			alert("Incorrect password");
+			// 		}else if(reply=="login_success"){
+			// 			localStorage.removeItem("username");
+			// 			localStorage.setItem("username",user);
+			// 			location.href = "/chat";
+			// 		}
+			// 	},
+			// 	error: function(result){
+			// 		$('#loader').attr({class: 'my-invisible'});
+			// 		alert("Error "+result);
+			// 	}
+			// });
 		}
 	}
 });
